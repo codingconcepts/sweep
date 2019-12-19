@@ -29,8 +29,8 @@ s := New(db, Config{
 	IncrementInterval: time.Second * 10,
 	DeleteFunc: func() (string, []interface{}) {
 		return `DELETE FROM "your_table"
-				WHERE "your_expiry_indicator" < $1
-				LIMIT $2`, []interface{}{ time.Now().UTC(),	1000 }
+			WHERE "your_expiry_indicator" < $1
+			LIMIT $2`, []interface{}{ time.Now().UTC(),	1000 }
 	},
 })
 
