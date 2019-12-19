@@ -27,7 +27,7 @@ s := New(db, Config{
 	Errors:            make(chan error, 10),
 	Interval:          time.Hour * 1,
 	IncrementInterval: time.Second * 10,
-	DeleteFunc: func() (string, []interface{}) {
+	DeleteFunc:        func() (string, []interface{}) {
 		return `DELETE FROM "your_table"
 		WHERE "your_expiry_indicator" < $1
 		LIMIT $2`, []interface{}{ time.Now().UTC(),	1000 }
