@@ -72,7 +72,7 @@ func TestSweepErrorExecuting(t *testing.T) {
 		},
 	})
 
-	err := errors.New("oh noes!")
+	err := errors.New("oh noes")
 	mock.ExpectExec("DELETE FROM").WithArgs(now, 1000).WillReturnError(err)
 
 	go s.Sweep()
@@ -99,7 +99,7 @@ func TestSweepErrorRowsAffected(t *testing.T) {
 		},
 	})
 
-	err := errors.New("oh noes!")
+	err := errors.New("oh noes")
 	mock.ExpectExec("DELETE FROM").WithArgs(now, 1000).WillReturnResult(sqlmock.NewErrorResult(err))
 
 	go s.Sweep()

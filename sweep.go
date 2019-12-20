@@ -3,11 +3,9 @@ package sweep
 import (
 	"database/sql"
 	"time"
-
-	_ "github.com/lib/pq"
 )
 
-type sweeper struct {
+type Sweeper struct {
 	db       *sql.DB
 	c        Config
 	Errs     chan error
@@ -27,8 +25,8 @@ type Config struct {
 
 // New returns a new sweeper object configured with the provide Config
 // object.
-func New(db *sql.DB, c Config) *sweeper {
-	return &sweeper{
+func New(db *sql.DB, c Config) *Sweeper {
+	return &Sweeper{
 		db:   db,
 		c:    c,
 		Done: make(chan struct{}),
@@ -39,7 +37,7 @@ func New(db *sql.DB, c Config) *sweeper {
 // Config provided at initialisation. It will wait for a given Interval
 // before starting a sweep process, clearing down Limit items at a time
 // every IncrementInterval until the table is empty.
-func (s *sweeper) Sweep() {
+func (s *Sweeper) Sweep() {
 	interval := time.NewTicker(s.c.Interval).C
 	for {
 		select {
